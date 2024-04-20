@@ -14,9 +14,12 @@ try:
         voice = listener.listen(source)
         command = listener.recognize_google(voice, language="fr-FR")
         print(command)
-        # say(command)
+        say(command)
+        with open("output.txt", "w"):
+            file.write(command)
 except:
     erreur = "Rien ne s'est passe comme prevu"
     print(erreur)
-    # say(erreur)
+    say(erreur)
     pass
+
