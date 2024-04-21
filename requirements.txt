@@ -2,4 +2,3 @@ SpeechRecognition
 pyaudio
 osmnx
 pyttsx
-pyPDF2
