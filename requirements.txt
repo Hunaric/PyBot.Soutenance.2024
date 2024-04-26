@@ -4,3 +4,4 @@ osmnx
 pyttsx
 pyPDF2
 pocketsphinx
+keyboard
