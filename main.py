@@ -159,4 +159,4 @@ if __name__ == '__main__':
             type_place = input("Type d'endroit : ")
             print("Maintenant, j'aimerais savoir si vous le recherchez dans une zone donnée. Si oui, dites moi où.")
             zone_recherche = input("Je vous écoute: ")
-            
+
