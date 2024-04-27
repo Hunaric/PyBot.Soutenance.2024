@@ -9,6 +9,11 @@ def say(text):
     engine.say(text)
     engine.runAndWait()
 
+def print_and_say(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
 def voiceRecognizer():
     try:
         with sr.Microphone() as source:

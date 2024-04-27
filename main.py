@@ -1,132 +1,105 @@
+import random
+
 # Ici sont repertoriés les variables phrases:
 presentation = [
-    "Bonjour, je suis GeoLocate, votre assistant vocal directionnel. En quoi puis-je vous aider ?",
-    "Hello! Ici GeoLocate pour vous aider. De quelle information avez vous besoin ?",
-    "Bonjour, vous. Moi c'est GeoLocate, votre guide. Comment puis-je vous aider ?",
+    "Bonjour, je suis GéoLocate, votre assistant vocal directionnel. En quoi puis-je vous aider ?",
+    "Hello! Ici GéoLocate pour vous aider. De quelle information avez vous besoin ?",
+    "Bonjour, vous. Moi c'est GéoLocate, votre guide. Comment puis-je vous aider ?",
     "Cher ami, bonjour. En quoi puis-je vous aider ?",
     "Salutation a vous. De quoi avez vous beosin ?"
 ]
 
-# Traduction des amenity
-def traduire_amenity(amenity=null, tourism=null, shop=null, leisure=null):
-    type = ""
-    if amenity == "clinic":
-        type = "une clinique"
-    elif amenity == "bar" or amenity == "restaurant" or amenity == "pub":
-        type = "un bar restaurant ou un maquis"
-    elif amenity == "police":
-        type = "un centre de police ou commissariat"
-    elif amenity == "cafe":
-        type = "un café"
-    elif amenity == "kindergarten":
-        type = "une école maternelle ou une crèche"
-    elif amenity == "dentist":
-        type = "un cabinet dentaire"
-    elif amenity == "toilets":
-        type = "une toilette"
-    elif amenity == "airport":
-        type = "un aéroport"
-    elif amenity == "bank" or amenity == "atm":
-        type = "une banque"
-    elif amenity == "school" or amenity == "college" or "university":
-        type = "une école, un collège ou une université"
-    elif amenity == "pharmacy":
-        type = "une pharmacie"
-    elif amenity == "marketplace":
-        type = "un marché"
-    elif amenity == "marketplace":
-        type = "un marché"
-    elif amenity == "cinema":
-        type = "une salle de cinéma"
-    elif amenity == "fast_food":
-        type = "un fast food"
-    elif amenity == "bus_station":
-        type = "une station de bus"
-    elif amenity == "bureau_de_change":
-        type = "un bureau de change"
-    elif amenity == "doctors":
-        type = "un centre de santé"
-    elif amenity == "library" or shop == "books":
-        type = "une librairie"
-    elif amenity == "hospital":
-        type = "un centre de santé"
-    elif amenity == "coworking_space":
-        type = "un espace de co working"
-    elif amenity == "townhall":
-        type = "un hôtel de ville ou un bureau administratif"
-    elif amenity == "place_of_worship":
-        type = "un lieu de culte traditionel, chrétien ou musulman"
-    elif tourism == "hotel":
-        type = "un hotel"
-    elif tourism == "guest_house":
-        type = "un guest house"
-    elif tourism == "apartment":
-        type = "un appartememnt"
-    elif tourism == "motel":
-        type = "un motel"
-    elif leisure == "park":
-        type = "une place publique"
-    elif shop == "kiosk" or shop == "variety_store":
-        type = "un kiosque ou une boutique d'alimentation générale"
-    elif shop == "electronique" or shop == "hardware":
-        type = "une boutique d'appareils élèctroniques"
-    elif shop == "clothes":
-        type = "une boutique de vêtements ou un centre de couture"
-    elif shop == "optician":
-        type = "une boutique de lunettes"
-    elif shop == "beverages":
-        type = "une boutique de boissons"
-    elif shop == "massage":
-        type = "un salon de massage"
-    elif shop == "pastry":
-        type = "un patisserie"
-    elif shop == "cosmetics":
-        type = "une boutique de produits cosmétiques"
-    elif shop == "boutique":
-        type = "une boutique"
-    elif shop == "tyres":
-        type = "une entreprise de vulcanisation"
-    elif shop == "sewing":
-        type = "un magazin de mode"
-    elif shop == "beauty":
-        type = "un institut de beauté"
-    elif shop == "pawnbroker":
-        type = "un système financié"
-    elif shop == "medical_supply":
-        type = "un soutien medical"
-    elif shop == "travel_agency":
-        type = "une agence de voyage"
-    elif shop == "fabric":
-        type = "un centre artisanal"
-    elif shop == "mobile_phone":
-        type = "une boutique de téléphone"
-    elif shop == "car":
-        type = "une entrepris d'automobile"
-    elif shop == "supermarket":
-        type = "un super marché"
-    elif shop == "wine":
-        type = "une boutique de vins"
-    elif shop == "dry_cleaning":
-        type = "un pressing"
-    elif shop == "glazery":
-        type = "une vitrerie"
-    elif shop == "jewlry":
-        type = "une boutique de bijoux"
-    elif shop == "car_repair":
-        type = "un garage automobile"
-    elif shop == "video_games":
-        type = "une salle de jeux vidéos"
-    elif shop == "games":
-        type = "une loterie"
-    elif shop == "copyshop":
-        type = "un centre de photocopie"
-    elif shop == "estate_agent":
-        type = "une agence immobilière"
-    elif shop == "seafood":
-        type = "une poissonnerie"
+au_revoir = [
+    "Au revorir et a bientôt",
+]
+
+def traduire_amenity(amenity=None, tourism=None, shop=None, leisure=None):
+    amenity_mapping = {
+        "clinic": "une clinique",
+        "bar": "un bar restaurant ou un maquis",
+        "restaurant": "un bar restaurant ou un maquis",
+        "pub": "un bar restaurant ou un maquis",
+        "police": "un centre de police ou commissariat",
+        "cafe": "un café",
+        "kindergarten": "une école maternelle ou une crèche",
+        "dentist": "un cabinet dentaire",
+        "toilets": "une toilette",
+        "airport": "un aéroport",
+        "bank": "une banque",
+        "atm": "une banque",
+        "school": "une école, un collège ou une université",
+        "college": "une école, un collège ou une université",
+        "university": "une école, un collège ou une université",
+        "pharmacy": "une pharmacie",
+        "marketplace": "un marché",
+        "cinema": "une salle de cinéma",
+        "fast_food": "un fast food",
+        "bus_station": "une station de bus",
+        "bureau_de_change": "un bureau de change",
+        "doctors": "un centre de santé",
+        "library": "une librairie",
+        "books": "une librairie",
+        "hospital": "un centre de santé",
+        "coworking_space": "un espace de co working",
+        "townhall": "un hôtel de ville ou un bureau administratif",
+        "place_of_worship": "un lieu de culte traditionel, chrétien ou musulman"
+    }
+
+    tourism_mapping = {
+        "hotel": "un hôtel",
+        "guest_house": "un guest house",
+        "apartment": "un appartement",
+        "motel": "un motel"
+    }
+
+    leisure_mapping = {
+        "park": "une place publique"
+    }
+
+    shop_mapping = {
+        "kiosk": "un kiosque ou une boutique d'alimentation générale",
+        "variety_store": "un kiosque ou une boutique d'alimentation générale",
+        "electronique": "une boutique d'appareils élèctroniques",
+        "hardware": "une boutique d'appareils élèctroniques",
+        "clothes": "une boutique de vêtements ou un centre de couture",
+        "optician": "une boutique de lunettes",
+        "beverages": "une boutique de boissons",
+        "massage": "un salon de massage",
+        "pastry": "un patisserie",
+        "cosmetics": "une boutique de produits cosmétiques",
+        "boutique": "une boutique",
+        "tyres": "une entreprise de vulcanisation",
+        "sewing": "un magazin de mode",
+        "beauty": "un institut de beauté",
+        "pawnbroker": "un système financié",
+        "medical_supply": "un soutien medical",
+        "travel_agency": "une agence de voyage",
+        "fabric": "un centre artisanal",
+        "mobile_phone": "une boutique de téléphone",
+        "car": "une entrepris d'automobile",
+        "supermarket": "un super marché",
+        "wine": "une boutique de vins",
+        "dry_cleaning": "un pressing",
+        "glazery": "une vitrerie",
+        "jewlry": "une boutique de bijoux",
+        "car_repair": "un garage automobile",
+        "video_games": "une salle de jeux vidéos",
+        "games": "une loterie",
+        "copyshop": "un centre de photocopie",
+        "estate_agent": "une agence immobilière",
+        "seafood": "une poissonnerie"
+    }
+
+    if amenity:
+        return amenity_mapping.get(amenity, "un type d'endroit encore inconnu pour moi")
+    elif tourism:
+        return tourism_mapping.get(tourism, "un type d'endroit encore inconnu pour moi")
+    elif shop:
+        return shop_mapping.get(shop, "un type d'endroit encore inconnu pour moi")
+    elif leisure:
+        return leisure_mapping.get(leisure, "un type d'endroit encore inconnu pour moi")
     else:
-        type = "un type d'endroit encore inconnu pour moi"
-    return type
+        return "un type d'endroit encore inconnu pour moi"
 
 # Traduction tourism
 # def traduire_tourism(tourism):
@@ -134,17 +107,32 @@ def traduire_amenity(amenity=null, tourism=null, shop=null, leisure=null):
 #     return type
 
 # Fonctions de sortie d'indication:
-def recherche_place_specifique(place=null, amenity=null,arrondissement=null, location=null, tourism=null, shop=null, leisure=null):
+def recherche_place_specifique(place=None, amenity=None,arrondissement=None, location=None, tourism=None, shop=None, leisure=None):
     texte = "Désolé, mes informations sont limitées au le littoral du Bénin."
     type = traduire_amenity(amenity,tourism, shop, leisure)
-    if (location==null and arrondissement!=null):
+    if (location==None and arrondissement!=None):
         texte = f"{place} est {type} situé dans le {arrondissement} dont je ne connais pas la localité"
-    elif (location!=null and arrondissement!=null):
+    elif (location!=None and arrondissement!=None):
         texte = f"{place} est {type} situé dans le {arrondissement} et plus précisement dans la localité de {localité}"
-    elif (arrondissement==null):
+    elif (arrondissement==None):
         texte = f"{place} est {type} non repertorié dans le littoral"
     else:
         texte = f"l'endroit {place} que vous recherchez m'est encore inconnu"
     return texte
 
 
+if __name__ == '__main__':
+    indiquer = True
+    while indiquer:
+        main_reponse = input("Une recherche par 'nom' ou par 'type' ou 'stop' : ")  
+
+        if main_reponse.lower() == 'stop':
+            indiquer = False
+
+        elif main_reponse.lower() == 'nom':
+            print("D'accord. Veuillez m'indiquer le nom de l'endroit que vous recherchez s'il vous plait.")
+            nom_place = input("Nom de l'endroit : ")
+            
+        elif main_reponse.lower() == 'type':
+            print("D'accord. Dites moi quel genre d'endroit vous recherchez.")
+            type_place = input("Type d'endroit : ")
