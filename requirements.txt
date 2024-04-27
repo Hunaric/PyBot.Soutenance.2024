@@ -5,3 +5,7 @@ pyttsx
 pyPDF2
 pocketsphinx
 keyboard
+shapely
+geopandas
+pyproj
+geopy
