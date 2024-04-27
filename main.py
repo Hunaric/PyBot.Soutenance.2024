@@ -1,4 +1,5 @@
 import random
+import json
 
 # Ici sont repertoriés les variables phrases:
 presentation = [
@@ -120,6 +121,22 @@ def recherche_place_specifique(place=None, amenity=None,arrondissement=None, loc
         texte = f"l'endroit {place} que vous recherchez m'est encore inconnu"
     return texte
 
+def trouver_mot_cle(mot_donne):
+    # Diviser l'entrée de l'utilisateur en mots
+    chaque_mot = mot_donne.lower().split()
+    
+    # Liste pour stocker les correspondances trouvées
+    matches = []
+    
+    # Parcourir chaque mot de l'entrée de l'utilisateur
+    for mot in chaque_mot:
+        # Vérifier si le mot correspond à une clé dans le fichier keyword.txt
+        if mot in keywords.values():
+            # Trouver la clé correspondante au mot
+            matching_key = [key for key, value in keywords.items() if value == mot][0]
+            matches.append(matching_key)
+    
+    return matches
 
 if __name__ == '__main__':
     indiquer = True
@@ -155,8 +172,21 @@ if __name__ == '__main__':
                 print("D'accord. J'effectue la recherche pour vous. Donnez moi quelques instants...")
             
         elif main_reponse.lower() == 'type':
+            # Charger le fichier keyword.txt
+            with open('keywords.txt', 'r', encoding='utf-8') as file:
+                keywords = json.load(file)
+
             print("D'accord. Dites moi quel genre d'endroit vous recherchez.")
             type_place = input("Type d'endroit : ")
-            print("Maintenant, j'aimerais savoir si vous le recherchez dans une zone donnée. Si oui, dites moi où.")
-            zone_recherche = input("Je vous écoute: ")
+            # print("Maintenant, j'aimerais savoir si vous le recherchez dans une zone donnée. Si oui, dites moi où.")
+            # zone_recherche = input("Je vous écoute: ")
+
+            matching_keywords = trouver_mot_cle(type_place)
+            if matching_keywords:
+                print("Correspondances trouvées : ", matching_keywords)
+            else:
+                print("Aucune correspondance trouvée.")
+                matching_keywords = None
+                
+
 
