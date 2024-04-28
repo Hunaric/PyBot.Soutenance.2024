@@ -1,8 +1,8 @@
 import json
 from shapely.geometry import Point
+from geopy.distance import geodesic
 from localite_plus_proche import *
 from lieu_plus_proche import *
-from geopy.distance import geodesic
 from fonctions_geo import *
 
 
