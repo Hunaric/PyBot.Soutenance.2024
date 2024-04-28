@@ -122,7 +122,7 @@
                 "type": "QUARTIER",
                 "source": "COMPLETEMENT",
                 "arrondisst": "1er Arrondissement",
-                "autre_nom": "NÃ¢â?¬â?¢VENAMEDE",
+                "autre_nom": "N'VENAMEDE",
                 "autre_san": "0",
                 "code_geo": "X440571Y703868",
                 "commune": "COTONOU",
@@ -722,7 +722,7 @@
                 "statut_adm": "VILLAGE",
                 "village_ad": "Avotrou-Aïmonlonfidé",
                 "j_commune": "COTONOU",
-                "j_arrond": "2ème Arrondissement"
+                "j_arrond": "!er Arrondissement"
             },
             "geometry": {
                 "type": "Point",

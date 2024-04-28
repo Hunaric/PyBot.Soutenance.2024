@@ -23,6 +23,8 @@
     "dry_cleaning": "pressing",
     "estate_agent": "agence immobilière",
     "fast_food": "fast food",
+    "fuel": "essence",
+    "fuel": "station",
     "game": "jeux",
     "games": "jeux",
     "guest_house": "guest house",

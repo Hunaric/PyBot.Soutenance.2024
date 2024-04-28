@@ -22,6 +22,7 @@ def traduire_type(amenity=None, tourism=None, shop=None, leisure=None):
         "pub": "un bar restaurant ou un maquis",
         "police": "un centre de police ou commissariat",
         "cafe": "un café",
+        "fuel": "une station d'essence",
         "kindergarten": "une école maternelle ou une crèche",
         "dentist": "un cabinet dentaire",
         "toilets": "une toilette",

@@ -3,6 +3,7 @@ from shapely.geometry import Point
 from localite_plus_proche import *
 from lieu_plus_proche import *
 from geopy.distance import geodesic
+from fonctions_geo import *
 
 
 # Charger le fichier GeoJSON des places
@@ -25,7 +26,7 @@ def recherche_places_et_localites_par_nom():
 
     # Si des places sont trouvées
     if places_trouvees:
-        nom_place, amenity_place, arrondissement_place, localite_place, tourism_place, shop_place, leisure_place = None
+        nom_place, amenity_place, arrondissement_place, localite_place, tourism_place, shop_place, leisure_place = None, None, None, None, None, None, None
         print(f"\nJ'ai trouvé {len(places_trouvees)} lieux: ")
         
         # Afficher les lieux trouvés avec un numéro d'index
@@ -47,9 +48,14 @@ def recherche_places_et_localites_par_nom():
                         # Afficher les propriétés de l'endroit sélectionné
                         selected_place = places_trouvees[choix - 1]
                         print("\nPropriétés de l'endroit sélectionné :")
+                        nom_place = selected_place["properties"]["name"]
+                        amenity_place = selected_place["properties"]["amenity"]
+                        tourism_place = selected_place["properties"]["tourism"]
+                        shop_place = selected_place["properties"]["shop"]
+                        leisure_place = selected_place["properties"]["leisure"]
 
                         # Extraire les coordonnées de la place
-                        coordinates = place['geometry']['coordinates']
+                        coordinates = selected_place['geometry']['coordinates']
                         # Si les coordonnées sont sous forme de liste imbriquée, choisir le premier point
                         if isinstance(coordinates[0], list):
                             coordinates = coordinates[0][0]  # Choisir le premier point de la liste
@@ -61,9 +67,12 @@ def recherche_places_et_localites_par_nom():
                         # Chercher la localité la plus proche de la place
                         localite_proche = trouver_localite_proche(place_point)
                         if not localite_proche.empty:  # Check if localite_proche is not empty
-                            localite = localite_proche["nom_loc"].values[0]
-                            arrondissement = localite_proche["arrondisst"].values[0]
-                            commune = localite_proche["commune"].values[0]
+                            localite_place = localite_proche["nom_loc"].values[0]
+                            arrondissement_place = localite_proche["arrondisst"].values[0]
+                            commune_place = localite_proche["commune"].values[0]
+                            resultat = retour_de_recherche(place=nom_place, amenity=amenity_place, arrondissement=arrondissement_place, 
+                            localite=localite_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
+                            print(resultat)
                         else:
                             print("Aucune localité trouvée à proximité de la place.")
             
