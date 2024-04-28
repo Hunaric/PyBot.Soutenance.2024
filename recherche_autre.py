@@ -27,7 +27,7 @@ def recherche_autre_critere(keyword):
     # Stocker les places correspondant au type de recherche
     places_trouvees = []
     for feature in places_data['features']:
-        if feature['properties'].get('amenity') == keyword:
+        if (feature['properties'].get('amenity') == keyword) or (feature['properties'].get('tourism') == keyword) or (feature['properties'].get('shop') == keyword) or (feature['properties'].get('leisure') == keyword):
             places_trouvees.append(feature)
 
     # Si aucune place n'est trouvée, afficher un message et terminer le programme
@@ -141,14 +141,39 @@ def recherche_autre_critere(keyword):
                                 exterior_point = Point(place_geometry.exterior.coords[0])
                                 distance = localite_point.distance(exterior_point)
 
-                            if distance <= 2000:  # Vérifier si l'école est dans un rayon de 2 km
-                                places_proches.append((place_name, distance, distance_meter))
+                            if distance <= 2000:  # Vérifier si la place est dans un rayon de 2 km
+                                places_proches.append((place_name, distance, place))
 
                     if places_proches:
                         places_proches.sort(key=lambda x: x[1])  # Trier par distance
-                        print(f"\nÉcoles trouvées dans la localité '{localite_name}' :")
-                        for place, distance, meter in places_proches[:5]:
-                            print(f"{place} - Distance : {meter:.2f} mètres")
+                        print(f"\nVoici quelques {mot_cle} que j'ai retrouvé a '{localite_name}' :")
+                        for place in places_proches[:5]:   
+                            place_data = place[2]
+                                                  
+                            # Initialisation des types:
+                            if 'amenity' in place_data["properties"]:
+                                amenity_place = place_data["properties"]["amenity"]
+                            else:
+                                amenity_place = None
+
+                            if 'tourism' in place_data["properties"]:
+                                tourism_place = place_data["properties"]["tourism"]
+                            else:
+                                tourism_place = None
+
+                            if 'shop' in place_data["properties"]:
+                                shop_place = place_data["properties"]["shop"]
+                            else:
+                                shop_place = None
+
+                            if 'leisure' in place_data["properties"]:
+                                leisure_place = place_data["properties"]["leisure"]
+                            else:
+                                leisure_place = None
+
+                            type_final = traduire_type(amenity=amenity_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
+
+                            print(f"J'ai trouvé {type_final} nommé {place_data['properties']['name']} dans {localite_name}")
                     else:
                         print(f"Aucune école trouvée dans la localité '{localite_name}' dans le rayon spécifié.")
                     
