@@ -2,6 +2,8 @@ import random
 import json
 from fonctions_geo import *
 from recherche_par_nom import *
+from matching_keyword import *
+from recherche_autre import *
 
 # Ici sont repertoriés les variables phrases:
 presentation = [
@@ -15,23 +17,6 @@ presentation = [
 au_revoir = [
     "Au revorir et a bientôt",
 ]
-
-def trouver_mot_cle(mot_donne):
-    # Diviser l'entrée de l'utilisateur en mots
-    chaque_mot = mot_donne.lower().split()
-    
-    # Liste pour stocker les correspondances trouvées
-    matches = []
-    
-    # Parcourir chaque mot de l'entrée de l'utilisateur
-    for mot in chaque_mot:
-        # Vérifier si le mot correspond à une clé dans le fichier keyword.txt
-        if mot in keywords.values():
-            # Trouver la clé correspondante au mot
-            matching_key = [key for key, value in keywords.items() if value == mot][0]
-            matches.append(matching_key)
-    
-    return matches
 
 if __name__ == '__main__':
     # Accueil et presentation
@@ -69,9 +54,6 @@ if __name__ == '__main__':
             recherche_places_et_localites_par_nom(nom_place)
             
         elif main_reponse.lower() == 'type':
-            # Charger le fichier keyword.txt
-            with open('keywords.txt', 'r', encoding='utf-8') as file:
-                keywords = json.load(file)
 
             print("D'accord. Dites moi quel genre d'endroit vous recherchez.")
             type_place = input("Type d'endroit : ")
@@ -80,7 +62,11 @@ if __name__ == '__main__':
 
             matching_keywords = trouver_mot_cle(type_place)
             if matching_keywords:
-                print("Correspondances trouvées : ", matching_keywords)
+                keyword = matching_keywords[0]
+                mot_cle = trouver_mot_cle(keyword)
+                # print("Correspondances trouvées : ", matching_keywords)
+                # print("Correspondances trouvées : ", matching_keywords[0])
+                recherche_autre_critere(keyword=keyword)
             else:
                 print("Aucune correspondance trouvée.")
                 matching_keywords = None

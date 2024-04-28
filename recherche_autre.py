@@ -1,5 +1,7 @@
 import json
 from shapely.geometry import Point, shape, Polygon
+from matching_keyword import *
+from fonctions_geo import traduire_type
 
 
 # Charger le fichier GeoJSON des endroits
@@ -17,25 +19,14 @@ with open('C:/Users/LENOVO/Downloads/Data/Propre/ctn_arrondissements.geojson', e
 # Charger les mots-clés à partir du fichier keywords.txt
 with open('C:/Users/LENOVO/Desktop/PyBot/keywords.txt', 'r') as f:
     keywords = json.load(f)
+    
 
-# Demander à l'utilisateur le type d'endroit recherché
-type_recherche = input("Entrez le type d'endroit que vous recherchez (amenity/shop/leisure) : ")
-
-# Vérifier si le type de recherche correspond à l'un des mots-clés
-type_trouve = False
-for keyword, value in keywords.items():
-    if type_recherche.lower() in [keyword.lower(), value.lower()]:
-        type_recherche = keyword
-        type_trouve = True
-        break
-
-if not type_trouve:
-    print("Type d'endroit non pris en charge.")
-else:
+def recherche_autre_critere(keyword):
+    mot_cle = inverse_mot_cle(keyword)
     # Stocker les places correspondant au type de recherche
     places_trouvees = []
     for feature in places_data['features']:
-        if feature['properties'].get('amenity') == type_recherche:
+        if feature['properties'].get('amenity') == keyword:
             places_trouvees.append(feature)
 
     # Si aucune place n'est trouvée, afficher un message et terminer le programme
@@ -43,7 +34,7 @@ else:
         print("Aucune place correspondante n'a été trouvée.")
     else:
         # Demander à l'utilisateur la zone de recherche ou le numéro de l'arrondissement
-        zone_recherche = input("Entrez le nom de la zone ou de la localité, ou un numéro d'arrondissement (entre 1 et 13) : ")
+        zone_recherche = input("Dites soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : ")
 
         # Recherche par arrondissement si l'entrée est un numéro
         if zone_recherche.isdigit():
@@ -62,7 +53,7 @@ else:
                         break
 
                 if not arrondissement_trouve:
-                    print("Arrondissement non trouvé.")
+                    print("Aucun arrondissement ne correspond a cette valeur.")
                 else:
                     places_trouvees_dans_arrondissement = []
                     for place in places_trouvees:
@@ -71,20 +62,55 @@ else:
                             if arrondissement_shape.contains(place_geometry):
                                 place_name = place['properties'].get('name')
                                 if place_name is not None:  # Vérifier si le nom de la place n'est pas None
-                                    places_trouvees_dans_arrondissement.append(place_name)
+                                    places_trouvees_dans_arrondissement.append(place)
                         elif isinstance(place_geometry, Polygon):
                             if arrondissement_shape.intersects(place_geometry):
                                 place_name = place['properties'].get('name')
                                 if place_name is not None:  # Vérifier si le nom de la place n'est pas None
-                                    places_trouvees_dans_arrondissement.append(place_name)
+                                    places_trouvees_dans_arrondissement.append(place)
 
-                    if places_trouvees_dans_arrondissement:
-                        print("\nPlaces trouvées dans l'arrondissement :")
+                    if places_trouvees_dans_arrondissement:                            
+                        # Initialisation des types:
+                        if 'amenity' in place["properties"]:
+                            amenity_place = place["properties"]["amenity"]
+                        else:
+                            amenity_place = None
+
+                        if 'tourism' in place["properties"]:
+                            tourism_place = place["properties"]["tourism"]
+                        else:
+                            tourism_place = None
+
+                        if 'shop' in place["properties"]:
+                            shop_place = place["properties"]["shop"]
+                        else:
+                            shop_place = None
+
+                        if 'leisure' in place["properties"]:
+                            leisure_place = place["properties"]["leisure"]
+                        else:
+                            leisure_place = None
+
+                        type_final = traduire_type(amenity=amenity_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
+
+                        print(f"\nJ'ai trouvé {len(places_trouvees_dans_arrondissement)} {mot_cle} dans le {arrondissement_name} :")
                         for place in places_trouvees_dans_arrondissement:
+                            # coordinates = place['geometry']['coordinates']
+                            # if isinstance(coordinates[0], list):
+                            #     coordinates = coordinates[0][0]  # Choisir le premier point de la liste
+                                
+                            #     # Créer un point avec les coordonnées de la place
+                            #     place_point = Point(coordinates)
+                            #     localite_proche = trouver_localite_proche(place_point)
+
+                            #     if not localite_proche.empty:  # Check if localite_proche is not empty
+                            #         print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_proche}")
+                            #     else:
+                            #         print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']}")
                             print(place)
                     else:
-                        print(arrondissement_info)
-                        print("Aucune place trouvée dans cet arrondissement.")
+                        # print(arrondissement_info)
+                        print(f"Aucun endoit du type {mot_cle} trouvée dans le {arrondissement_name}.")
 
         else:
             # Recherche par localité

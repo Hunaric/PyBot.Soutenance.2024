@@ -122,4 +122,4 @@ def recherche_places_et_localites_par_nom():
 
 
 
-recherche_places_et_localites_par_nom()
+# recherche_places_et_localites_par_nom()

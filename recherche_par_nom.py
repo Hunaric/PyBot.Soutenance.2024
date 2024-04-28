@@ -97,7 +97,7 @@ def recherche_places_et_localites_par_nom():
                                 type_traduit = traduire_type(type_de_place_proche)
 
                                 if nom_de_place_proche:
-                                    print("Nom:", nom_de_place_proche)
+                                    # print("Nom:", nom_de_place_proche)
                                     print(f"A {round(distance, 2)} mètres de là se trouve {type_traduit} nommé {nom_de_place_proche}")
                                 else:
                                     print(f"A {round(distance, 2)} mètres de là se trouve {type_traduit} dont le nom m'est encore inconnu")
