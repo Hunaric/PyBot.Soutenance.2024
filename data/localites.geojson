@@ -649,7 +649,7 @@
                 "statut_adm": "VILLAGE",
                 "village_ad": "Suru-Léré",
                 "j_commune": "COTONOU",
-                "j_arrond": "2ème Arrondissement"
+                "j_arrond": "1er Arrondissement"
             },
             "geometry": {
                 "type": "Point",
@@ -1840,7 +1840,7 @@
                 "nom_assemb": "Fifadji Houto (Quartier JAK)",
                 "nom_enq": "Fifadji Houto",
                 "nom_insae": "FIFADJI HOUTO",
-                "nom_loc": "Fifadji-Houto (Jak)",
+                "nom_loc": "Fifadji-Houto (Quartier Jak)",
                 "nom_sbee": "FIFADJI HOUTO (JACK)",
                 "police": "0",
                 "pompiers": "0",
@@ -2610,7 +2610,7 @@
                 "statut_adm": "VILLAGE",
                 "village_ad": "Bocossi-Tokpa",
                 "j_commune": "COTONOU",
-                "j_arrond": "6ème Arrondissement"
+                "j_arrond": "5ème Arrondissement"
             },
             "geometry": {
                 "type": "Point",
@@ -2682,7 +2682,7 @@
                 "statut_adm": "VILLAGE",
                 "village_ad": "Nouveau-Pont",
                 "j_commune": "COTONOU",
-                "j_arrond": "6ème Arrondissement"
+                "j_arrond": "5ème Arrondissement"
             },
             "geometry": {
                 "type": "Point",
@@ -2755,7 +2755,7 @@
                 "statut_adm": "SIMPLE",
                 "village_ad": "Fignon-Sikê",
                 "j_commune": "COTONOU",
-                "j_arrond": "6ème Arrondissement"
+                "j_arrond": "7ème Arrondissement"
             },
             "geometry": {
                 "type": "Point",
@@ -3804,7 +3804,7 @@
                 "statut_adm": "VILLAGE",
                 "village_ad": "Énagnon-Sikê",
                 "j_commune": "COTONOU",
-                "j_arrond": "8ème Arrondissement"
+                "j_arrond": "7ème Arrondissement"
             },
             "geometry": {
                 "type": "Point",
@@ -3948,7 +3948,7 @@
                 "statut_adm": "VILLAGE",
                 "village_ad": "Missité-Sikê",
                 "j_commune": "COTONOU",
-                "j_arrond": "8ème Arrondissement"
+                "j_arrond": "7ème Arrondissement"
             },
             "geometry": {
                 "type": "Point",
@@ -4471,7 +4471,7 @@
             "properties": {
                 "type": "QUARTIER",
                 "source": "COMPLETEMENT",
-                "arrondisst": "10ème Arrondissement",
+                "arrondisst": "9ème Arrondissement",
                 "autre_nom": "YENAWA",
                 "autre_san": "0",
                 "code_geo": "X433334Y706316",
@@ -5033,7 +5033,7 @@
                 "statut_adm": "Non renseigné",
                 "village_ad": "Non renseigné",
                 "j_commune": "COTONOU",
-                "j_arrond": "11ème Arrondissement"
+                "j_arrond": "5ème Arrondissement"
             },
             "geometry": {
                 "type": "Point",
