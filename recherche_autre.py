@@ -2,6 +2,7 @@ import json
 from shapely.geometry import Point, shape, Polygon
 from matching_keyword import *
 from fonctions_geo import traduire_type
+from localite_plus_proche import trouver_localite_proche
 
 
 # Charger le fichier GeoJSON des endroits
@@ -95,19 +96,21 @@ def recherche_autre_critere(keyword):
 
                         print(f"\nJ'ai trouvé {len(places_trouvees_dans_arrondissement)} {mot_cle} dans le {arrondissement_name} :")
                         for place in places_trouvees_dans_arrondissement:
-                            # coordinates = place['geometry']['coordinates']
-                            # if isinstance(coordinates[0], list):
-                            #     coordinates = coordinates[0][0]  # Choisir le premier point de la liste
+                            coordinates = place['geometry'].get('coordinates')
+                            if isinstance(coordinates[0], list):
+                                coordinates = coordinates[0][0]  # Choisir le premier point de la liste
                                 
-                            #     # Créer un point avec les coordonnées de la place
-                            #     place_point = Point(coordinates)
-                            #     localite_proche = trouver_localite_proche(place_point)
+                            # Créer un point avec les coordonnées de la place
+                            place_point = Point(coordinates)
+                            localite_proche = trouver_localite_proche(place_point)
 
-                            #     if not localite_proche.empty:  # Check if localite_proche is not empty
-                            #         print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_proche}")
-                            #     else:
-                            #         print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']}")
-                            print(place)
+                            if not localite_proche.empty:  # Check if localite_proche is not empty
+                                localite_place = localite_proche["nom_loc"].values[0]
+                                print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_place}")
+                            else:
+                                print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']}")
+                            # print(coordinates)
+                            # print(place['geometry'].get('coordinates'))
                     else:
                         # print(arrondissement_info)
                         print(f"Aucun endoit du type {mot_cle} trouvée dans le {arrondissement_name}.")
