@@ -49,10 +49,26 @@ def recherche_places_et_localites_par_nom():
                         selected_place = places_trouvees[choix - 1]
                         print("\nPropriétés de l'endroit sélectionné :")
                         nom_place = selected_place["properties"]["name"]
-                        amenity_place = selected_place["properties"]["amenity"]
-                        tourism_place = selected_place["properties"]["tourism"]
-                        shop_place = selected_place["properties"]["shop"]
-                        leisure_place = selected_place["properties"]["leisure"]
+                        if 'amenity' in selected_place["properties"]:
+                            amenity_place = selected_place["properties"]["amenity"]
+                        else:
+                            amenity_place = None
+
+                        if 'tourism' in selected_place["properties"]:
+                            tourism_place = selected_place["properties"]["tourism"]
+                        else:
+                            tourism_place = None
+
+                        if 'shop' in selected_place["properties"]:
+                            shop_place = selected_place["properties"]["shop"]
+                        else:
+                            shop_place = None
+
+                        if 'leisure' in selected_place["properties"]:
+                            leisure_place = selected_place["properties"]["leisure"]
+                        else:
+                            leisure_place = None
+
 
                         # Extraire les coordonnées de la place
                         coordinates = selected_place['geometry']['coordinates']
@@ -73,28 +89,25 @@ def recherche_places_et_localites_par_nom():
                             resultat = retour_de_recherche(place=nom_place, amenity=amenity_place, arrondissement=arrondissement_place, 
                             localite=localite_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
                             print(resultat)
+                            # Chercher le type de place le plus proche
+                            type_de_place_proche, nom_de_place_proche, localisation_de_la_place = trouver_place_proche(place_point, places_data)
+
+                            if type_de_place_proche:
+                                distance = geodesic((coordinates[1], coordinates[0]), (localisation_de_la_place[1], localisation_de_la_place[0])).meters
+                                type_traduit = traduire_type(type_de_place_proche)
+
+                                if nom_de_place_proche:
+                                    print("Nom:", nom_de_place_proche)
+                                    print(f"A {round(distance, 2)} mètres de là se trouve {type_traduit} nommé {nom_de_place_proche}")
+                                else:
+                                    print(f"A {round(distance, 2)} mètres de là se trouve {type_traduit} dont le nom m'est encore inconnu")
+                                    
+                            else:
+                                print("Aucune place de type recherché trouvée à proximité de la place.")
+                            
                         else:
-                            print("Aucune localité trouvée à proximité de la place.")
+                            print("Aucune localité trouvée à proximité de la place. Peut-etre qu'elle ne se retrouve pas dans le littoral ou que vous m'ayew mal renseigné le nom.")
             
-        #     # Chercher le type de place le plus proche
-        #     type_de_place_proche, nom_de_place_proche = trouver_place_proche(place_point, places_data)
-        #     if type_de_place_proche:
-        #         print("\nPlace de type le plus proche :")
-        #         print("Type:", type_de_place_proche)
-        #         if nom_de_place_proche:
-        #             print("Nom:", nom_de_place_proche)
-        #         else:
-        #             print("Nom: Aucun nom disponible")
-        #     else:
-        #         print("Aucune place de type recherché trouvée à proximité de la place.")
-            
-        #     # Trouver la distance entre la place recherchée et la place la plus proche
-        #     distance = geodesic((coordinates[1], coordinates[0]), (localite_proche.geometry.y.values[0], localite_proche.geometry.x.values[0])).meters
-        #     print("\nDistance entre la place recherchée et la place la plus proche:", round(distance, 2), "mètres")
-            
-    #         print("---------------------------------------------")
-    # else:
-    #     print("Aucune place correspondant à la recherche n'a été trouvée.")
                     
                         # Mettre le code de retour de recherche 
                         break

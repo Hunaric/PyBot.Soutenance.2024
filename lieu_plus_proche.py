@@ -5,6 +5,7 @@ def trouver_place_proche(point, places_data):
     min_distance = float('inf')
     nearest_place_type = None
     nearest_place_name = None
+    nearest_place_geometry = None
     types_de_places = ["bank", "pharmacy", "school", "police", "clinic", "restaurant"]
 
     # Iterate over the features in the places data
@@ -26,6 +27,7 @@ def trouver_place_proche(point, places_data):
                 min_distance = distance
                 nearest_place_type = feature['properties']['amenity']
                 nearest_place_name = feature['properties'].get('name', 'Unnamed')  # Default to 'Unnamed' if name is None
+                nearest_place_geometry = coordinates
 
     # Return the nearest place type and name
-    return nearest_place_type, nearest_place_name
+    return nearest_place_type, nearest_place_name, nearest_place_geometry
