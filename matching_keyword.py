@@ -14,13 +14,15 @@ def trouver_mot_cle(mot_donne):
     
     # Parcourir chaque mot de l'entrée de l'utilisateur
     for mot in chaque_mot:
-        # Vérifier si le mot correspond à une clé dans le fichier keyword.txt
-        if mot in keywords.values():
-            # Trouver la clé correspondante au mot
-            matching_key = [key for key, value in keywords.items() if value == mot][0]
-            matches.append(matching_key)
+        # Parcourir les éléments du dictionnaire keywords
+        for key, values in keywords.items():
+            # Vérifier si le mot est présent dans les valeurs associées à la clé
+            if mot in values:
+                matches.append(key)
+                break  # Sortir de la boucle interne si une correspondance est trouvée
     
     return matches
+
 
 def inverse_mot_cle(valeur_donnee):
     # Parcourir les éléments du dictionnaire keywords

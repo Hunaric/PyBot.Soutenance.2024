@@ -7,11 +7,11 @@ from recherche_autre import *
 
 # Ici sont repertoriés les variables phrases:
 presentation = [
-    "Bonjour, je suis GéoLocate, votre assistant vocal directionnel. En quoi puis-je vous aider ?",
-    "Hello! Ici GéoLocate pour vous aider. De quelle information avez vous besoin ?",
-    "Bonjour, vous. Moi c'est GéoLocate, votre guide. Comment puis-je vous aider ?",
-    "Cher ami, bonjour. En quoi puis-je vous aider ?",
-    "Salutation a vous. De quoi avez vous beosin ?"
+    "Bonjour, je suis GéoLocate, votre assistant vocal directionnel.",
+    "Hello! Ici GéoLocate pour vous aider.",
+    "Bonjour, vous. Moi c'est GéoLocate, votre guide.?",
+    "Cher ami, bonjour.",
+    "Salutation a vous."
 ]
 
 au_revoir = [
@@ -20,7 +20,7 @@ au_revoir = [
 
 if __name__ == '__main__':
     # Accueil et presentation
-    # print(presentation[random.randint(0,len(presentation)-1)])
+    print(presentation[random.randint(0,len(presentation)-1)])
     indiquer = True
     trouver = False
     while indiquer:
@@ -70,6 +70,8 @@ if __name__ == '__main__':
             else:
                 print("Aucune correspondance trouvée.")
                 matching_keywords = None
+
+    print(au_revoir[random.randint(0,len(au_revoir)-1)])
 
 
 
