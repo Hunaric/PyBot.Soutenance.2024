@@ -13,3 +13,4 @@ Ouvrir le terminal dans le repertoire du projet et suivez les etapes:
     - Sous Windows : '.\venv\Scripts\activate'
     - Sous Unix et MacOS : 'source venv/bin/activate'
 - Installer les dependances necessaire en excutant: 'pip install -r requirements.txt'
+- Executer ensuite le fichier main.py
