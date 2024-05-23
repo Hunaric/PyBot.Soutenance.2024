@@ -11,8 +11,8 @@ def say(text, speed=150):  # Vitesse de lecture par défaut : 150 mots par minut
     engine.runAndWait()
 
 # Utilisation
-phrase = "Bonjour, comment ça va?"
-say(phrase, speed=200)  # Changer la vitesse si nécessaire
+phrase = "Bé gamin"
+say(phrase, speed=120)  # Changer la vitesse si nécessaire
 
 
 # engine.runAndWait()

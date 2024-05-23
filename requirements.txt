@@ -1,7 +1,7 @@
 SpeechRecognition
 pyaudio
 osmnx
-pyttsx
+pyttsx3
 pyPDF2
 pocketsphinx
 keyboard

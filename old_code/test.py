@@ -4,8 +4,9 @@ import datetime
 
 listener = sr.Recognizer()
 
-def say(text):
+def say(text, speed=120):
     engine = pyttsx3.init()
+    engine.setProperty('rate', speed)  # Vitesse de lecture
     engine.say(text)
     engine.runAndWait()
 
@@ -34,17 +35,18 @@ def voiceRecognizer():
         pass
 
 if __name__ == '__main__':
-    accueil = "Mi quoi Bord. Que puis-je faire pour vous ?"
+    # accueil = "Mi quoi Bord. Que puis-je faire pour vous ?"
+    accueil = "Que puis-je faire pour vous ?"
     bye = "Au revoir et a la prochaine"
     say(accueil)
     # while True:
-    maVoix = voiceRecognizer()
-    if maVoix:
-        if "recherche un endroit" in maVoix.lower() or "trouver un lieu" in maVoix.lower():
-            print("D'accord")
-        if "quelle heure" in maVoix.lower():
-            heure = datetime.datetime.now().strftime("%H")
-            minute = datetime.datetime.now().strftime("%M")
-            say(f"Il sonne exactement {heure} heure {minute} minutes")
-    else:
-        say(bye)
+    # maVoix = voiceRecognizer()
+    # if maVoix:
+    #     if "recherche un endroit" in maVoix.lower() or "trouver un lieu" in maVoix.lower():
+    #         print("D'accord")
+    #     if "quelle heure" in maVoix.lower():
+    #         heure = datetime.datetime.now().strftime("%H")
+    #         minute = datetime.datetime.now().strftime("%M")
+    #         say(f"Il sonne exactement {heure} heure {minute} minutes")
+    # else:
+    #     say(bye)

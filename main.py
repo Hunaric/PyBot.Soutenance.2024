@@ -7,9 +7,9 @@ from recherche_autre import *
 
 # Ici sont repertoriés les variables phrases:
 presentation = [
-    "Bonjour, je suis GéoLocate, votre assistant vocal directionnel.",
-    "Hello! Ici GéoLocate pour vous aider.",
-    "Bonjour, vous. Moi c'est GéoLocate, votre guide.?",
+    "Bonjour, je suis GéoLocator, votre assistant vocal directionnel.",
+    "Hello! Ici GéoLocator pour vous aider.",
+    "Bonjour, vous. Moi c'est GéoLocator, votre guide.?",
     "Cher ami, bonjour.",
     "Salutation a vous."
 ]

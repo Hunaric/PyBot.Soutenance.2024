@@ -1,0 +1,11 @@
+{
+    "Bé gamin": "Gbegame",
+    "cade j'ai où": "Cadjehoun",
+    "Or lors guè dès": "Wologuede",
+    "bé jro mes dés": "Gbedjromede",
+    "dans t'or par": "Dantokpa",
+    "t'or par": "Tokpa",
+    "a papa": "Akpakpa",
+    "fifa dit": "Fifadji",
+    "ouais i hors": "Houeyiho",
+}

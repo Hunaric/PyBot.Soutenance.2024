@@ -1,0 +1,11 @@
+{
+    "Houeyiho": ["Royan", "Rouen", "Roura", "rue Iran", "courir"],
+    "Fifadji": ["FIFA 10", "FIFA 18"],
+    "Akpakpa": ["à papa"],
+    "Tokpa": ["Tampa", "Touba", "tabac", "papa"],
+    "Dantokpa": ["ton papa"],
+    "Gbedjromede": ["Petro Mendy", "Petro mais", "peux-tu m'aider", "Bertrand m'aider", "proximite", "Petro Meli", "Bertrand Meli"],
+    "Wologuede": ["Wallonne", "wallon quinté"],
+    "Gbegame": ["Bretagne", Bécane", "pregame", "begamme", Bellegarde", "Pégomas"],
+    "Cadjehoun": ["4h", "catcheur", "châtillon", "cadet", "4 jours", "4G ou", "4G où"],
+}
