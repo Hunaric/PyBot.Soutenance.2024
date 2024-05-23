@@ -1,4 +1,5 @@
 import json
+from voice_engine import say
 from shapely.geometry import Point, shape, Polygon
 from matching_keyword import *
 from fonctions_geo import traduire_type
@@ -32,16 +33,18 @@ def recherche_autre_critere(keyword):
 
     # Si aucune place n'est trouvée, afficher un message et terminer le programme
     if not places_trouvees:
-        print("Aucune place correspondante n'a été trouvée.")
+        say("Aucune place correspondante n'a été trouvée.")
     else:
         # Demander à l'utilisateur la zone de recherche ou le numéro de l'arrondissement
-        zone_recherche = input("Dites soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : ")
+        texte = "Dites soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : "
+        say(texte)
+        zone_recherche = input()
 
         # Recherche par arrondissement si l'entrée est un numéro
         if zone_recherche.isdigit():
             num_arrondissement = int(zone_recherche)
             if num_arrondissement < 1 or num_arrondissement > 13:
-                print("Numéro d'arrondissement invalide.")
+                say("Numéro d'arrondissement invalide.")
             else:
                 arrondissement_trouve = False
                 for feature in arrondissement_data['features']:
@@ -54,7 +57,7 @@ def recherche_autre_critere(keyword):
                         break
 
                 if not arrondissement_trouve:
-                    print("Aucun arrondissement ne correspond a cette valeur.")
+                    say("Aucun arrondissement ne correspond a cette valeur.")
                 else:
                     places_trouvees_dans_arrondissement = []
                     for place in places_trouvees:
@@ -94,7 +97,7 @@ def recherche_autre_critere(keyword):
 
                         type_final = traduire_type(amenity=amenity_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
 
-                        print(f"\nJ'ai trouvé {len(places_trouvees_dans_arrondissement)} {mot_cle} dans le {arrondissement_name} :")
+                        say(f"\nJ'ai trouvé {len(places_trouvees_dans_arrondissement)} {mot_cle} dans le {arrondissement_name} :")
                         for place in places_trouvees_dans_arrondissement:
                             coordinates = place['geometry'].get('coordinates')
                             if isinstance(coordinates[0], list):
@@ -106,14 +109,14 @@ def recherche_autre_critere(keyword):
 
                             if not localite_proche.empty:  # Check if localite_proche is not empty
                                 localite_place = localite_proche["nom_loc"].values[0]
-                                print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_place}")
+                                say(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_place}")
                             else:
-                                print(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']}")
-                            # print(coordinates)
-                            # print(place['geometry'].get('coordinates'))
+                                say(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']}")
+                            # say(coordinates)
+                            # say(place['geometry'].get('coordinates'))
                     else:
-                        # print(arrondissement_info)
-                        print(f"Aucun endoit du type {mot_cle} trouvée dans le {arrondissement_name}.")
+                        # say(arrondissement_info)
+                        say(f"Aucun endoit du type {mot_cle} trouvée dans le {arrondissement_name}.")
 
         else:
             # Recherche par localité
@@ -125,7 +128,7 @@ def recherche_autre_critere(keyword):
                     localites_trouvees.append((feature['properties']['nom_loc'], localite_shape))
 
             if not localites_trouvees:
-                print("Aucune localité correspondante n'a été trouvée.")
+                say("Aucune localité correspondante n'a été trouvée.")
             else:
                 for localite_name, localite_shape in localites_trouvees:
                     places_proches = []
@@ -146,7 +149,7 @@ def recherche_autre_critere(keyword):
 
                     if places_proches:
                         places_proches.sort(key=lambda x: x[1])  # Trier par distance
-                        print(f"\nVoici quelques {mot_cle} que j'ai retrouvé a '{localite_name}' :")
+                        say(f"\nVoici quelques {mot_cle} que j'ai retrouvé a '{localite_name}' :")
                         for place in places_proches[:5]:   
                             place_data = place[2]
                                                   
@@ -173,7 +176,7 @@ def recherche_autre_critere(keyword):
 
                             type_final = traduire_type(amenity=amenity_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
 
-                            print(f"J'ai trouvé {type_final} nommé {place_data['properties']['name']} dans {localite_name}")
+                            say(f"J'ai trouvé {type_final} nommé {place_data['properties']['name']} dans {localite_name}")
                     else:
-                        print(f"Aucune école trouvée dans la localité '{localite_name}' dans le rayon spécifié.")
+                        say(f"Aucune école trouvée dans la localité '{localite_name}' dans le rayon spécifié.")
                     

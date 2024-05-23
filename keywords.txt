@@ -10,7 +10,7 @@
     "bus_station": ["station de bus"],
     "car": ["voiture"],
     "car_repair": ["réparation de voitures", "reparation de voitures", "garage"],
-    "cinema": ["cinéma"],
+    "cinema": ["cinéma", "cinema"],
     "clothes": ["vêtements", "vetements"],
     "coffee shop": ["café", "cafe"],
     "college": ["collège"],

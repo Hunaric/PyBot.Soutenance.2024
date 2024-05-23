@@ -1,9 +1,11 @@
 import json
+from voice_engine import say, say_only
 from geopy.distance import geodesic
 from shapely.geometry import Point
 from localite_plus_proche import trouver_localite_proche
 from lieu_plus_proche import *
 from fonctions_geo import *
+from matching_keyword import replace_values_with_keys
 
 
 # Charger le fichier GeoJSON des places
@@ -27,19 +29,24 @@ def recherche_places_et_localites_par_nom(nom_recherche):
     # Si des places sont trouvées
     if places_trouvees:
         nom_place, amenity_place, arrondissement_place, localite_place, tourism_place, shop_place, leisure_place = None, None, None, None, None, None, None
-        print(f"\nJ'ai trouvé {len(places_trouvees)} lieux: ")
+        say(f"\nJ'ai trouvé {len(places_trouvees)} lieux: ")
         
         # Afficher les lieux trouvés avec un numéro d'index
         for i, place in enumerate(places_trouvees):
-            print(f"{i+1}. {place['properties']['name']}")
+            response = f"{i+1}. {place['properties']['name']}"
+            print(response)
+            response_fon = replace_values_with_keys(response)
+            say_only(response_fon)
 
 
         while True:
             # Demander à l'utilisateur de choisir un endroit
-            choix = input("\nEntrez le numéro de l'endroit que vous souhaitez sélectionner (ou 'stop' pour arrêter) : ")
+            texte = "Entrez le numéro de l'endroit que vous souhaitez sélectionner (ou 'stop' pour arrêter) : "
+            say(texte)
+            choix = input()
 
             if choix.lower() == 'stop':
-                print("J'arrete cette recherche.")
+                say("J'arrete cette recherche.")
                 return
             else:
                 try:
@@ -47,7 +54,7 @@ def recherche_places_et_localites_par_nom(nom_recherche):
                     if 0 < choix <= len(places_trouvees):
                         # Afficher les propriétés de l'endroit sélectionné
                         selected_place = places_trouvees[choix - 1]
-                        print("\nPropriétés de l'endroit sélectionné :")
+                        say("\nPropriétés de l'endroit sélectionné :")
                         nom_place = selected_place["properties"]["name"]
                         if 'amenity' in selected_place["properties"]:
                             amenity_place = selected_place["properties"]["amenity"]
@@ -93,9 +100,10 @@ def recherche_places_et_localites_par_nom(nom_recherche):
                             localite_place = localite_proche["nom_loc"].values[0]
                             arrondissement_place = localite_proche["arrondisst"].values[0]
                             commune_place = localite_proche["commune"].values[0]
-                            resultat = retour_de_recherche(place=nom_place, amenity=amenity_place, arrondissement=arrondissement_place, 
-                            localite=localite_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
+                            resultat = retour_de_recherche(place=nom_place, amenity=amenity_place, arrondissement=arrondissement_place, localite=localite_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
+                            resultat_fon = replace_values_with_keys(resultat)
                             print(resultat)
+                            say_only(resultat_fon)
                             # Chercher le type de place le plus proche
                             type_de_place_proche, nom_de_place_proche, localisation_de_la_place = trouver_place_proche(place_point, places_data)
 
@@ -104,23 +112,29 @@ def recherche_places_et_localites_par_nom(nom_recherche):
                                 type_traduit = traduire_type(type_de_place_proche)
 
                                 if nom_de_place_proche:
-                                    # print("Nom:", nom_de_place_proche)
-                                    print(f"A {round(distance, 2)} mètres de là se trouve {type_traduit} nommé {nom_de_place_proche}")
+                                    # say("Nom:", nom_de_place_proche)
+                                    info = f"A {round(distance, 2)} mètres de là se trouve {type_traduit} nommé {nom_de_place_proche}"
+                                    info_fon = replace_values_with_keys(info)
+                                    print(info)
+                                    say_only(info_fon)
                                 else:
-                                    print(f"A {round(distance, 2)} mètres de là se trouve {type_traduit} dont le nom m'est encore inconnu")
+                                    info = f"A {round(distance, 2)} mètres de là se trouve {type_traduit} dont le nom m'est encore inconnu"
+                                    print(info)
+                                    info_fon = replace_values_with_keys(info)
+                                    say_only(info_fon)
                                     
                             else:
-                                print("Aucune place de type recherché trouvée à proximité de la place.")
+                                say("Aucune place de type recherché trouvée à proximité de la place.")
                             
                         else:
-                            print("Aucune localité trouvée à proximité de la place. Peut-etre qu'elle ne se retrouve pas dans le littoral ou que vous m'ayew mal renseigné le nom.")
+                            say("Aucune localité trouvée à proximité de la place. Peut-etre qu'elle ne se retrouve pas dans le littoral ou que vous m'ayew mal renseigné le nom.")
             
                     
                         # Mettre le code de retour de recherche 
                         break
                     else:
-                        print("Numéro d'endroit invalide.")
+                        say("Numéro d'endroit invalide.")
                 except ValueError:
-                    print("Veuillez entrer un numéro valide.")
+                    say("Veuillez entrer un numéro valide.")
     else:
-        print("Aucun lieu trouvé pour la recherche spécifiée.")
+        say("Aucun lieu trouvé pour la recherche spécifiée.")

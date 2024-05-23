@@ -33,3 +33,14 @@ def inverse_mot_cle(valeur_donnee):
             return valeur
     # Si aucune correspondance n'est trouvée, retourner None
     return None
+
+def replace_values_with_keys(text):
+    # Charger le dictionnaire depuis le fichier
+    with open("read.txt", 'r', encoding='utf-8') as file:
+        dictionary = eval(file.read())  # Attention : utilisez eval uniquement si vous avez confiance dans la source du fichier
+
+    for key, values in dictionary.items():  # Utilisation de values au lieu de value
+        for value in values:  # Itération sur les valeurs
+            if value in text:
+                text = text.replace(value, key)
+    return text
