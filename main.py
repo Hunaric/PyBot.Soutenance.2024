@@ -1,5 +1,4 @@
 import random
-import threading
 from fonctions_geo import *
 from recherche_par_nom import *
 from matching_keyword import *
@@ -21,30 +20,29 @@ au_revoir = [
 
 if __name__ == '__main__':
     # Accueil et presentation
-    say(presentation[random.randint(0,len(presentation)-1)])
+    say(presentation[random.randint(0, len(presentation) - 1)])
     indiquer = True
-    trouver = False
     while indiquer:
-        txt = "Vous souhaitez effectuer une recherche par 'nom' ou par 'type' ? Si non, tapez 'stop' "
-        say(txt)
-        main_reponse = input()  
+        main_reponse = None
+        while main_reponse is None:
+            txt = "Vous souhaitez effectuer une recherche par 'nom' ou par 'type' ? Si non, dites 'stop' "
+            say(txt)
+            main_reponse = voiceRecognizer()
 
-        if main_reponse.lower() == 'stop':
+        if ('stop' or "stoppe") in main_reponse.lower():
             indiquer = False
-
-        elif main_reponse.lower() == 'nom':
-            say("D'accord. Veuillez m'indiquer le nom de l'endroit que vous recherchez s'il vous plait.")
+        elif ('nom' or 'non') in main_reponse.lower():
+            say("D'accord. Veuillez m'indiquer le nom de l'endroit que vous recherchez s'il vous plaît.")
             texte = "Nom de l'endroit : "
-            
             nom_place = input(texte)
             recherche_places_et_localites_par_nom(nom_place)
-            
-        elif main_reponse.lower() == 'type':
-
-            say("D'accord. Dites moi quel genre d'endroit vous recherchez.")
-            texte_2 = "Type d'endroit : "
-            say(texte_2)
-            type_place = input()
+        elif ('type' or 'pratique') in main_reponse.lower():
+            type_place = None
+            while type_place is None:
+                say("D'accord. Dites moi quel genre d'endroit vous recherchez.")
+                texte_2 = "Type d'endroit : "
+                print(texte_2)
+                type_place = voiceRecognizer()
 
             matching_keywords = trouver_mot_cle(type_place)
             if matching_keywords:
@@ -55,7 +53,4 @@ if __name__ == '__main__':
                 say("Aucune correspondance trouvée.")
                 matching_keywords = None
 
-    say(au_revoir[random.randint(0,len(au_revoir)-1)])
-
-
-
+    say(au_revoir[random.randint(0, len(au_revoir) - 1)])

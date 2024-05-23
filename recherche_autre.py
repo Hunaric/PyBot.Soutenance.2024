@@ -36,7 +36,7 @@ def recherche_autre_critere(keyword):
         say("Aucune place correspondante n'a été trouvée.")
     else:
         # Demander à l'utilisateur la zone de recherche ou le numéro de l'arrondissement
-        texte = "Dites soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : "
+        texte = "Tapez soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : "
         say(texte)
         zone_recherche = input()
 

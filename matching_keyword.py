@@ -30,7 +30,7 @@ def inverse_mot_cle(valeur_donnee):
         # Vérifier si la valeur donnée correspond à la valeur actuelle du dictionnaire
         if cle == valeur_donnee:
             # Retourner la clé correspondante
-            return valeur
+            return valeur[0]
     # Si aucune correspondance n'est trouvée, retourner None
     return None
 

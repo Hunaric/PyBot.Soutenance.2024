@@ -25,13 +25,12 @@ def voiceRecognizer():
             sr.non_speaking_duration = 5
             voice = listener.listen(source)
             command = listener.recognize_google(voice, language="fr-FR")
-            print(f"Vous avez dit : \"{command}\"")
-            say(command)
+            texte = f"Vous avez dit : \"{command}\""
+            say(texte)
             return command
             # with open("output.txt", "w"):
             #     file.write(command)
     except:
         erreur = "Je crois avoir du mal a comprendre votre requête"
-        print(erreur)
         say(erreur)
         pass
