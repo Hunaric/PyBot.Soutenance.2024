@@ -5,6 +5,10 @@ import json
 with open('keywords.txt', 'r', encoding='utf-8') as file:
     keywords = json.load(file)
 
+# Charger les données JSON dans un dictionnaire Python
+with open('city.txt', 'r', encoding='utf-8') as file:
+    city_data = json.load(file)
+
 def trouver_mot_cle(mot_donne):
     # Diviser l'entrée de l'utilisateur en mots
     chaque_mot = mot_donne.lower().split()
@@ -44,3 +48,18 @@ def replace_values_with_keys(text):
             if value in text:
                 text = text.replace(value, key)
     return text
+
+# def find_city(phrase):
+#     for city_name, keywords in city_data.items():
+#         for keyword in keywords:
+#             if keyword.lower() in phrase.lower():
+#                 return city_name
+#     return "Aucune correspondance trouvée"
+
+
+def find_city(phrase):
+    for city_name, keywords in city_data.items():
+        for keyword in keywords:
+            if keyword.lower() in phrase.lower():
+                return city_name
+    return "Aucune correspondance trouvée"

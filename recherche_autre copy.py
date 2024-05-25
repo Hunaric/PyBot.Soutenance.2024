@@ -4,7 +4,6 @@ from shapely.geometry import Point, shape, Polygon
 from matching_keyword import *
 from fonctions_geo import traduire_type
 from localite_plus_proche import trouver_localite_proche
-from voice_engine import *
 
 
 # Charger le fichier GeoJSON des endroits
@@ -36,17 +35,14 @@ def recherche_autre_critere(keyword):
     if not places_trouvees:
         say("Aucune place correspondante n'a été trouvée.")
     else:
-        zone_recherche_init = None
-
-        while zone_recherche_init is None: 
-            # Demander à l'utilisateur la zone de recherche ou le numéro de l'arrondissement
-            texte = "Dites soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : "
-            say(texte)
-            zone_recherche_init = voiceCity()
+        # Demander à l'utilisateur la zone de recherche ou le numéro de l'arrondissement
+        texte = "Tapez soit le nom de la zone ou de la localité, soit le numéro d'arrondissement (entre 1 et 13) : "
+        say(texte)
+        zone_recherche = input()
 
         # Recherche par arrondissement si l'entrée est un numéro
-        if zone_recherche_init.isdigit():
-            num_arrondissement = int(zone_recherche_init)
+        if zone_recherche.isdigit():
+            num_arrondissement = int(zone_recherche)
             if num_arrondissement < 1 or num_arrondissement > 13:
                 say("Numéro d'arrondissement invalide.")
             else:
@@ -113,15 +109,9 @@ def recherche_autre_critere(keyword):
 
                             if not localite_proche.empty:  # Check if localite_proche is not empty
                                 localite_place = localite_proche["nom_loc"].values[0]
-                                reponse = f"{mot_cle} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_place}"
-                                print(reponse)
-                                reponse_fon = replace_values_with_keys(reponse)
-                                say_only(reponse_fon)
+                                say(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']} et qui se retouve a {localite_place}")
                             else:
-                                reponse = f"{mot_cle} qui a pour nom {place['properties']['name']}"
-                                print(reponse)
-                                reponse_fon = replace_values_with_keys(reponse)
-                                say_only(reponse_fon)
+                                say(f"J'ai retrouvé {type_final} qui a pour nom {place['properties']['name']}")
                             # say(coordinates)
                             # say(place['geometry'].get('coordinates'))
                     else:
@@ -130,11 +120,10 @@ def recherche_autre_critere(keyword):
 
         else:
             # Recherche par localité
-            zone_recherche = find_city(zone_recherche_init)
             min_distance = float('inf')
             localites_trouvees = []
             for feature in localite_data['features']:
-                if feature['properties']['nom_insae'].lower().startswith(zone_recherche.lower()):
+                if feature['properties']['nom_loc'].lower().startswith(zone_recherche.lower()):
                     localite_shape = shape(feature['geometry'])
                     localites_trouvees.append((feature['properties']['nom_loc'], localite_shape))
 
@@ -160,10 +149,7 @@ def recherche_autre_critere(keyword):
 
                     if places_proches:
                         places_proches.sort(key=lambda x: x[1])  # Trier par distance
-                        debut = f"\nVoici quelques {mot_cle} que j'ai retrouvé a '{localite_name}' :"
-                        print(debut)
-                        debut_fon = replace_values_with_keys(debut)
-                        say_only(debut_fon)
+                        say(f"\nVoici quelques {mot_cle} que j'ai retrouvé a '{localite_name}' :")
                         for place in places_proches[:5]:   
                             place_data = place[2]
                                                   
@@ -190,13 +176,7 @@ def recherche_autre_critere(keyword):
 
                             type_final = traduire_type(amenity=amenity_place, tourism=tourism_place, shop=shop_place, leisure=leisure_place)
 
-                            resultat = f"{mot_cle} nommé {place_data['properties']['name']} dans {localite_name}"
-                            print(resultat)
-                            resultat_fon = replace_values_with_keys(resultat)
-                            say_only(resultat_fon)
+                            say(f"J'ai trouvé {type_final} nommé {place_data['properties']['name']} dans {localite_name}")
                     else:
-                        result = f"Aucune école trouvée dans la localité '{localite_name}' dans le rayon spécifié."
-                        print(result)
-                        result_fon = replace_values_with_keys(result)
-                        say_only(result_fon)
+                        say(f"Aucune école trouvée dans la localité '{localite_name}' dans le rayon spécifié.")
                     

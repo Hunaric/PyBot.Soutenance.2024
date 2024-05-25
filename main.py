@@ -29,17 +29,18 @@ if __name__ == '__main__':
             say(txt)
             main_reponse = voiceRecognizer()
 
-        if ('stop' or "stoppe") in main_reponse.lower():
+        if 'stop' in main_reponse.lower() or "stoppe" in main_reponse.lower():
             indiquer = False
-        elif ('nom' or 'non') in main_reponse.lower():
+        elif 'nom' in main_reponse.lower() or 'non' in main_reponse.lower():
             say("D'accord. Veuillez m'indiquer le nom de l'endroit que vous recherchez s'il vous plaît.")
             texte = "Nom de l'endroit : "
             nom_place = input(texte)
             recherche_places_et_localites_par_nom(nom_place)
-        elif ('type' or 'pratique') in main_reponse.lower():
+        elif 'type' in main_reponse.lower() or 'pratique' in main_reponse.lower():
+            say("D'accord")
             type_place = None
             while type_place is None:
-                say("D'accord. Dites moi quel genre d'endroit vous recherchez.")
+                say("Dites moi quel genre d'endroit vous recherchez.")
                 texte_2 = "Type d'endroit : "
                 print(texte_2)
                 type_place = voiceRecognizer()

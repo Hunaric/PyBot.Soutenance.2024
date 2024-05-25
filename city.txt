@@ -6,6 +6,6 @@
     "Dantokpa": ["ton papa"],
     "Gbedjromede": ["Petro Mendy", "Petro mais", "peux-tu m'aider", "Bertrand m'aider", "proximite", "Petro Meli", "Bertrand Meli"],
     "Wologuede": ["Wallonne", "wallon quinté"],
-    "Gbegame": ["Bretagne", Bécane", "pregame", "begamme", Bellegarde", "Pégomas"],
-    "Cadjehoun": ["4h", "catcheur", "châtillon", "cadet", "4 jours", "4G ou", "4G où"],
+    "Gbegame": ["Bretagne", "Pigalle", "Main", "Mégane", "Mégame", "Béguey", "Bernay", "begummy", "Bécane", "pregame", "begamme", "Bellegarde", "Pégomas", "gamin", "gamins", "pédale", "Beckham"],
+    "Cadjehoun": ["4h", "catcheur", "châtillon", "cadet", "4 jours", "4G ou", "4G où"]
 }
