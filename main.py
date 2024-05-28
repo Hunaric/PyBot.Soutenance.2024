@@ -29,7 +29,7 @@ if __name__ == '__main__':
             say(txt)
             main_reponse = voiceRecognizer()
 
-        if 'stop' in main_reponse.lower() or "stoppe" in main_reponse.lower():
+        if 'stop' in main_reponse.lower() or "stoppe" in main_reponse.lower() or "arrête" in main_reponse.lower() or "arrêter" in main_reponse.lower():
             indiquer = False
         elif 'nom' in main_reponse.lower() or 'non' in main_reponse.lower():
             say("D'accord. Veuillez m'indiquer le nom de l'endroit que vous recherchez s'il vous plaît.")
