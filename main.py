@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
         if 'stop' in main_reponse.lower() or "stoppe" in main_reponse.lower() or "arrête" in main_reponse.lower() or "arrêter" in main_reponse.lower():
             indiquer = False
-        elif 'nom' in main_reponse.lower() or 'non' in main_reponse.lower():
+        elif 'nom' in main_reponse.lower() or 'non' in main_reponse.lower() or 'pardon' in main_reponse.lower() or 'parement' in main_reponse.lower():
             say("D'accord. Veuillez m'indiquer le nom de l'endroit que vous recherchez s'il vous plaît.")
             texte = "Nom de l'endroit : "
             nom_place = input(texte)
