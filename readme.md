@@ -1,4 +1,4 @@
-Projet Python de géolocalisation pour le robot policier
+Projet Python de géolocalisation pour le robot policier (Commande vocale)
 
 Developpé par deux etudiants de GASA FORMATION en 3ème année de licence
 - FANGNON Hugues Nathanael
