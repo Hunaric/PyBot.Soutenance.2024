@@ -28,7 +28,8 @@ Le projet étant centré sur l’écoute et la réponse vocale, nous n’avons p
 
 ## Le Mémoire de recherche
 
-[📄 Consulter le rapport complet (PDF)](Memoire - Fangnon et Yessoufou.pdf)
+[📄 Consulter le rapport complet (PDF)](./Memoire_complet.pdf)
+
 
 
 ## Pour l'installer:
